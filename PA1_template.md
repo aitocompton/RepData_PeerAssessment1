@@ -1,4 +1,4 @@
-Reproductive Data Analysis: Assignment 
+Reproductive Data Analysis: Assignment 1
 ==
 ### 11/16/2014 
 
@@ -35,14 +35,15 @@ activity$date<-as.Date(activity$date)
 1: Make a histogram of the total number of steps taken each day:
 
 ```r
-attach(activity)
+attach(activity, warn.conflicts=F)
 ```
 
 ```
-## Error in attach(activity): object 'activity' not found
+## Error in attach(activity, warn.conflicts = F): object 'activity' not found
 ```
 
 ```r
+# Aggregate the sum of steps of activiy by date ignoring NA:
 aggSteps<-aggregate(activity[,c(1,3)], by=list(date), FUN=sum, na.rm=TRUE)
 ```
 
@@ -51,6 +52,7 @@ aggSteps<-aggregate(activity[,c(1,3)], by=list(date), FUN=sum, na.rm=TRUE)
 ```
 
 ```r
+# Create a Histogram of the above data:
 hist(aggSteps$steps, main="Total Number of Steps Taken Each Day",xlab = "Steps")
 ```
 
@@ -59,7 +61,7 @@ hist(aggSteps$steps, main="Total Number of Steps Taken Each Day",xlab = "Steps")
 ```
 
 
-2: Calculate the mean and median total number of steps peer day:
+2: Calculate the mean and median total number of steps per day:
 
 ```r
 mean(aggSteps$steps)
@@ -81,6 +83,7 @@ median(aggSteps$steps)
 1: Make a time series plot of the 5-minutes interval (x-axis) and the average number of steps taken, averaged across all days (y-axis):
 
 ```r
+# Aggregate the mean of steps of activity by the intervals:
 aggInt<-aggregate(activity[,c(1,3)], by=list(interval), FUN=mean,na.rm=T)
 ```
 
@@ -89,7 +92,10 @@ aggInt<-aggregate(activity[,c(1,3)], by=list(interval), FUN=mean,na.rm=T)
 ```
 
 ```r
+# Load ggplot2:
 library(ggplot2)
+
+# Create the plot of the above data:
 qplot(interval, steps,data=aggInt , geom="line")
 ```
 
@@ -183,74 +189,7 @@ median(aggSteps2$steps)
 ## Error in median(aggSteps2$steps): object 'aggSteps2' not found
 ```
 
-The mean and median total number of steps derived from aggSteps2 differ from the mean and median total number of steps derived from  aggSteps. The imputing missing data on the estimate of the total activity of daily number steps increased the mean and median of the daily steps. 
-
-### Differences in activity patterns between weekdays and weekends
-
-1: Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend:
 
 
-```r
-#create a factor variable classfying weekdayas and weekends of the dataframe, activity:
 
-activity[which(weekdays(activity$date)=="Saturday"|weekdays(activity$date)=="Sunday"),4]<-"weekends"
-```
-
-```
-## Error in activity[which(weekdays(activity$date) == "Saturday" | weekdays(activity$date) == : object 'activity' not found
-```
-
-```r
-activity[which(!weekdays(activity$date)=="Saturday" & !weekdays(activity$date)=="Sunday"),4]<-"weekdays"
-```
-
-```
-## Error in activity[which(!weekdays(activity$date) == "Saturday" & !weekdays(activity$date) == : object 'activity' not found
-```
-
-```r
-# Convert the classification variable into the factor variable: 
-activity[,4]<-as.factor(activity[,4])
-```
-
-```
-## Error in is.factor(x): object 'activity' not found
-```
-
-2: Make a panel plot containing a time series plot of the 5-minute interval and the average number of steps taken, averaged across all weekdays or weekends:
-
-
-```r
-attach(activity)
-```
-
-```
-## Error in attach(activity): object 'activity' not found
-```
-
-```r
-aggAct<-aggregate(activity[,c(1,3)], by=list(interval,V4), FUN=mean,na.rm=T)
-```
-
-```
-## Error in aggregate(activity[, c(1, 3)], by = list(interval, V4), FUN = mean, : object 'activity' not found
-```
-
-```r
-# Creat the layer of the ggplot for aggData:
-sp <- ggplot( aggAct, aes(x=interval, y=steps)) + geom_line()
-```
-
-```
-## Error in ggplot(aggAct, aes(x = interval, y = steps)): object 'aggAct' not found
-```
-
-```r
-# Split the plots according to weekdays and weekends:
-sp +facet_grid(Group.2~.)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'sp' not found
-```
 
