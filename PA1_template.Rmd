@@ -7,7 +7,8 @@ Reproductive Data Analysis: Assignment 1
 ### Loading and procesing the data
 
 ```{r}
-activity<-read.csv("Downloads/activity.csv", quote="\"'", stringsAsFactors=F)
+unzip("activity.zip","activity.csv")
+activity<-read.csv("activity.csv", quote="\"'", stringsAsFactors=F)
 ```   
 1: Transforming the date variable of the activity data into the date class:
 
@@ -126,4 +127,3 @@ sp <- ggplot( aggAct, aes(x=interval, y=steps)) + geom_line()
 # Split the plots according to weekdays and weekends:
 sp +facet_grid(Group.2~.)
 ```
-
