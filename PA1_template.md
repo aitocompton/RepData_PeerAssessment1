@@ -8,16 +8,8 @@ Reproductive Data Analysis: Assignment 1
 
 
 ```r
-activity<-read.csv("Downloads/activity.csv", quote="\"'", stringsAsFactors=F)
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'Downloads/activity.csv': No
-## such file or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+unzip("activity.zip","activity.csv")
+activity<-read.csv("activity.csv", quote="\"'", stringsAsFactors=F)
 ```
 1: Transforming the date variable of the activity data into the date class:
 
@@ -182,4 +174,3 @@ sp +facet_grid(Group.2~.)
 ```
 
 ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
-
