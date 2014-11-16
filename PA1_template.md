@@ -86,7 +86,7 @@ aggInt[which(aggInt$steps==max(aggInt$steps)),]$interval
 
 
 ```r
-# Since missing values exist in the step data, the totla number of the missing value can be derived from this variable:
+# Since missing values exist in the step data, the total number of the missing value can be derived from this variable:
 sum(with(activity, is.na(steps)))
 ```
 
